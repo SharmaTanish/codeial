@@ -4,7 +4,7 @@
 
 import React from "react";
 import {connect} from 'react-redux';
-import {BrowserRouter as Router, Link,Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router,Route, Switch} from 'react-router-dom';
 // import posts from "../reducers/posts";
 import {fetchPosts} from '../actions/posts';
 import Home from "./home";
@@ -12,6 +12,8 @@ import Navbar from './navbar';
 import Page404 from "./page404";
 import Login from "./login";
 import Signup from "./signup";
+import jwtDecode from 'jwt-decode';
+import { authenticateUser } from "../actions/auth";
 
 // function App() {
 //   return (
@@ -25,9 +27,23 @@ class App extends React.Component{
 
   componentDidMount(){
     this.props.dispatch(fetchPosts());
+
+    const token = localStorage.getItem('token');
+    if(token){
+      // NOW NEED TO DECRYPT TEKEN 
+      const user = jwtDecode(token);
+      console.log('jwtUser',user);
+      this.props.dispatch(authenticateUser({
+        email:user.email,
+        _id:user._id,
+        name:user.name
+      }));
+    }
+
   }
 
   render(){
+    console.log("in app.js",this.props.posts);
     return(
       <Router>
       <div>

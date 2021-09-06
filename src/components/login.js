@@ -1,4 +1,7 @@
 import React from "react";
+import { clearAuthState, login } from "../actions/auth";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 class Login extends React.Component {
     constructor(props){
         super(props);
@@ -6,6 +9,10 @@ class Login extends React.Component {
             email:'',
             password :''
          }
+    }
+
+    componentWillUnmount() {
+        this.props.dispatch(clearAuthState());
     }
 
     handleEmailChange = (e) => {
@@ -24,12 +31,21 @@ class Login extends React.Component {
         e.preventDefault();
         console.log(this.state);
         // submit this data to server , then from server recieve success or failure and JWT Token
+        const {email,password} = this.state;
+        if(email && password){
+            this.props.dispatch(login(email,password));  // TO GET ACCESS OF DISPATCH HERE, WE NEED TO CONNECT THIS COMPONET WITH STORE
+        }
     }
    
     render() { 
+        const {error,inProgress,isLoggedin} = this.props.auth;
+        if(isLoggedin){
+            return <Redirect to="/" />
+        }
         return ( <div>
             <form className="login-form">
                 <span className="login-signup-header" >Log In</span>
+                {error && <div className="alert error-dailog">{error}</div>}
                 <div className="field" >
                     <input type="email" placeholder="Email" required onChange={this.handleEmailChange} value = {this.state.email}/> 
                 </div>
@@ -37,11 +53,23 @@ class Login extends React.Component {
                     <input type="password" placeholder="Password" required onChange={this.handlePasswordChange}  value = {this.state.password}/> 
                 </div>
                 <div className="field" >
-                    <button onClick={this.handleSubmit} >Log In</button>
+                {
+                    inProgress ? 
+                    <button onClick={this.handleSubmit} disabled={inProgress} >Logging In...</button>
+                    :
+                    <button onClick={this.handleSubmit} disabled={inProgress} >Log In</button>
+                }
+                    
                 </div>
             </form>
         </div> );
     }
 }
  
-export default Login;
+function mapStateToProps(state){
+    return {
+        auth:state.auth
+    }
+}
+
+export default connect(mapStateToProps)(Login);

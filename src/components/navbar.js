@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
+import { logOutUser } from '../actions/auth';
 
 class Navbar extends Component {
+    logout = () => {
+      localStorage.removeItem('token');
+      this.props.dispatch(logOutUser());
+    }
     render() {
+      const auth = this.props.auth;
         return (
             <nav className="nav">
             <div className="left-div">
@@ -41,26 +48,34 @@ class Navbar extends Component {
               </div>
             </div>
             <div className="right-nav">
+            {auth.isLoggedin &&
               <div className="user">
                 <img
                   src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
                   alt="user-dp"
                   id="user-dp"
                 />
-                <span>John Doe</span>
+                <span>{auth.user.name}</span>
               </div>
+            }
               <div className="nav-links">
                
         <ul>
+        { !auth.isLoggedin &&
           <li>
             <Link to="/login">Login</Link>
           </li>
-          <li>
-            <Link to="/logout">Logout </Link> 
+        }
+        { auth.isLoggedin &&
+          <li onClick={this.logout} >
+            Logout 
           </li>
+        }
+        { !auth.isLoggedin &&
           <li>
             <Link to="/signup">Signup</Link>
           </li>
+        }
         </ul>
               </div>
             </div>
@@ -69,4 +84,10 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar;
+function mapStateToProps(state){
+  return{
+    auth:state.auth
+  }
+}
+
+export default connect(mapStateToProps)(Navbar);

@@ -7,7 +7,7 @@ class PostsList extends Component {
     return (
       <div className="posts-list">
         {posts.map((post) => (
-          <div className="post-wrapper" key={posts.indexOf(post)}> 
+          <div className="post-wrapper" key={post._id}> 
             <div className="post-header">
               <div className="post-avatar">
                 <img
@@ -15,11 +15,11 @@ class PostsList extends Component {
                   alt="user-pic"
                 />
                 <div>
-                  <span className="post-author">{post.split(" ")[0]}</span>
+                  <span className="post-author">{post.user.name}</span>
                   <span className="post-time">a minute ago</span>
                 </div>
               </div>
-              <div className="post-content">{post}</div>
+              <div className="post-content">{post.content}</div>
 
               <div className="post-actions">
                 <div className="post-like">
@@ -27,7 +27,7 @@ class PostsList extends Component {
                     src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
                     alt="likes-icon"
                   />
-                  <span>{1}</span>
+                  <span>{post.likes.length}</span>
                 </div>
 
                 <div className="post-comments-icon">
@@ -35,7 +35,7 @@ class PostsList extends Component {
                     src="https://image.flaticon.com/icons/svg/1380/1380338.svg"
                     alt="comments-icon"
                   />
-                  <span>{1}</span>
+                  <span>{post.comments.length}</span>
                 </div>
               </div>
               <div className="post-comment-box">

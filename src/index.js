@@ -15,7 +15,7 @@ console.log(store.getState());
 
 ReactDOM.render(
   <React.StrictMode>
-  <Provider store={store} >
+  <Provider store={store} >  {/* WE HAVE TO PASS PROVIDER , SINCE CONNECT WILL GET STORE FROM THIS ONLY */} 
     <App />
     </Provider>
   </React.StrictMode>,
