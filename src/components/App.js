@@ -14,6 +14,8 @@ import Login from "./login";
 import Signup from "./signup";
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from "../actions/auth";
+import Settings from "./settings";
+import { Redirect } from "react-router";
 
 // function App() {
 //   return (
@@ -22,6 +24,18 @@ import { authenticateUser } from "../actions/auth";
 //     </div>
 //   );
 // }
+
+const PrivateRoute = (privateRouteProps) =>{  // MAKE A SEPARTE COMPONENT , FOR REUASABLITY OF THIS PRIVATE ROUTE
+  const {isLoggedin,component:Component,path} = privateRouteProps;
+  return(
+    <Route
+      path={path}
+      render={(props) =>{
+        return isLoggedin ? <Component {...props}/> : <Redirect to='/login' />
+      }}
+    />
+  )
+}
 
 class App extends React.Component{
 
@@ -52,11 +66,12 @@ class App extends React.Component{
 
 
       <Switch>
-        <Route path="/" exact render={(props) => {
+        <Route path="/" exact render={(props) => {  // USE THIS WHEN TO USE LOGIC IN ROUTING
           return <Home {...props} posts = {this.props.posts} />
         }} />
         <Route path="/login"  component={Login} />
         <Route path="/signup"  component={Signup} />
+        <PrivateRoute path="/settings"  component={Settings} isLoggedin={this.props.auth.isLoggedin} />
         <Route component={Page404} />
         </Switch>
       </div>
@@ -68,7 +83,8 @@ class App extends React.Component{
 
 function mapStateToProps (state){  // WE AUTOMATICALLY GETS STATE AS ARGUMENT HERE, TO USE THIS STATE TO STORE DATA FROM THIS STATE/REDUX-STORE TO PROPS
      return {
-    posts:state.posts
+    posts:state.posts,
+    auth:state.auth
   }  
 }
 
