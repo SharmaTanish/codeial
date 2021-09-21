@@ -1,4 +1,4 @@
-import { LOGIN_FAILED,LOGIN_SUCCESS, LOGIN_START,SIGNUP_FAILED,SIGNUP_SUCCESS, SIGNUP_START, AUTHENTICATE_USER, LOG_OUT, CLEAR_AUTH_STATE } from "../actions/actionTypes"
+import { LOGIN_FAILED,LOGIN_SUCCESS, LOGIN_START,SIGNUP_FAILED,SIGNUP_SUCCESS, SIGNUP_START, AUTHENTICATE_USER, LOG_OUT, CLEAR_AUTH_STATE, EDIT_USER_FAILED, EDIT_USER_SUCCESSFUL } from "../actions/actionTypes"
 const initialDefaultAuthState={
     user:{},
     isLoggedin:false,
@@ -48,6 +48,17 @@ export default function(state=initialDefaultAuthState,action){
         return{
             ...state,
             error:null
+        }
+        case EDIT_USER_FAILED:
+        return{
+            ...state,
+            error:action.error,
+        }
+        case EDIT_USER_SUCCESSFUL:
+        return{
+            ...state,
+            user:action.user,
+            error:false  //to use futher in showing error etc on screen, therefore asign false instaed of null 
         }
         default:
             return{

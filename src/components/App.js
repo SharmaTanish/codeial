@@ -15,7 +15,9 @@ import Signup from "./signup";
 import jwtDecode from 'jwt-decode';
 import { authenticateUser } from "../actions/auth";
 import Settings from "./settings";
+import User from "./user";
 import { Redirect } from "react-router";
+import { getAuthTokenFromLocalStorage } from "../helpers/utils";
 
 // function App() {
 //   return (
@@ -31,7 +33,12 @@ const PrivateRoute = (privateRouteProps) =>{  // MAKE A SEPARTE COMPONENT , FOR 
     <Route
       path={path}
       render={(props) =>{
-        return isLoggedin ? <Component {...props}/> : <Redirect to='/login' />
+        return isLoggedin ? <Component {...props}/> : <Redirect to={{
+          pathname:'/login',
+          state:{
+          from : props.location
+          }
+        }} />
       }}
     />
   )
@@ -42,7 +49,7 @@ class App extends React.Component{
   componentDidMount(){
     this.props.dispatch(fetchPosts());
 
-    const token = localStorage.getItem('token');
+    const token = getAuthTokenFromLocalStorage();
     if(token){
       // NOW NEED TO DECRYPT TEKEN 
       const user = jwtDecode(token);
@@ -72,6 +79,7 @@ class App extends React.Component{
         <Route path="/login"  component={Login} />
         <Route path="/signup"  component={Signup} />
         <PrivateRoute path="/settings"  component={Settings} isLoggedin={this.props.auth.isLoggedin} />
+        <PrivateRoute path="/user"  component={User} isLoggedin={this.props.auth.isLoggedin} />
         <Route component={Page404} />
         </Switch>
       </div>

@@ -9,3 +9,5 @@ export function getFormBody(params){
     }
     return formBody.join('&');  // NOW FROM THIS WE HAVE URL ENCODED STRING LIKE SYNTAX 
 }
+
+export function getAuthTokenFromLocalStorage(){return localStorage.getItem('token')};

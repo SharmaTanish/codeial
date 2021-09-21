@@ -39,12 +39,13 @@ class Login extends React.Component {
    
     render() { 
         const {error,inProgress,isLoggedin} = this.props.auth;
+        const {from}  = this.props.location.state || { from : {pathname: '/'}} // i.e. IF PROPS.LOCATION.STATE IS NULL THEN REDIRECT TO HOME ONLY!!
         if(isLoggedin){
-            return <Redirect to="/" />
+            return <Redirect to={from} />
         }
         return ( <div>
             <form className="login-form">
-                <span className="login-signup-header" >Log In</span>
+                <span className="login-signup-header" >Log in</span>
                 {error && <div className="alert error-dailog">{error}</div>}
                 <div className="field" >
                     <input type="email" placeholder="Email" required onChange={this.handleEmailChange} value = {this.state.email}/> 
@@ -55,9 +56,9 @@ class Login extends React.Component {
                 <div className="field" >
                 {
                     inProgress ? 
-                    <button onClick={this.handleSubmit} disabled={inProgress} >Logging In...</button>
+                    <button onClick={this.handleSubmit} disabled={inProgress} >Logging in...</button>
                     :
-                    <button onClick={this.handleSubmit} disabled={inProgress} >Log In</button>
+                    <button onClick={this.handleSubmit} disabled={inProgress} >Log in</button>
                 }
                     
                 </div>
