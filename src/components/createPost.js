@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { createPost } from '../actions/posts';
+import { connect } from 'react-redux';
 
 class CreatePost extends Component {
     constructor(props){
@@ -19,6 +21,10 @@ class CreatePost extends Component {
 
     handleOnChange = () => {
         // dispatch action
+        this.props.dispatch(createPost(this.state.content));
+        this.setState({
+            content:''
+        })
     }
 
     render() {
@@ -33,4 +39,4 @@ class CreatePost extends Component {
     }
 }
 
-export default CreatePost;
+export default connect()(CreatePost); //HERE AS NOT PASSING ANY MAPSTATETOPROPS FUNCTION, AS BYDEFAULT TO GIVES US DISPATCH ONLY , THAT THE ONLY ONE WE EEDED HERE
