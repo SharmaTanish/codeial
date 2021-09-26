@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import CreatePost from './createPost';
 
 class PostsList extends Component {
   render() {
     const { posts } = this.props;
     return (
+
       <div className="posts-list">
+
+      <CreatePost/>
+
         {posts.map((post) => (
           <div className="post-wrapper" key={post._id}> 
             <div className="post-header">
               
                 <div className="post-avatar">
-                <Link to='/user'>
+                <Link to={`/user/${post.user._id}`}>
                   <img
                     src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
                     alt="user-pic"

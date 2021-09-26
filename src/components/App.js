@@ -18,6 +18,7 @@ import Settings from "./settings";
 import User from "./user";
 import { Redirect } from "react-router";
 import { getAuthTokenFromLocalStorage } from "../helpers/utils";
+import { fetchUserFriends } from "../actions/friends";
 
 // function App() {
 //   return (
@@ -59,6 +60,7 @@ class App extends React.Component{
         _id:user._id,
         name:user.name
       }));
+      this.props.dispatch(fetchUserFriends());
     }
 
   }
@@ -74,12 +76,12 @@ class App extends React.Component{
 
       <Switch>
         <Route path="/" exact render={(props) => {  // USE THIS WHEN TO USE LOGIC IN ROUTING
-          return <Home {...props} posts = {this.props.posts} />
+          return <Home {...props} posts = {this.props.posts} friends={this.props.friends}  isLoggedin={this.props.auth.isLoggedin} />
         }} />
         <Route path="/login"  component={Login} />
         <Route path="/signup"  component={Signup} />
         <PrivateRoute path="/settings"  component={Settings} isLoggedin={this.props.auth.isLoggedin} />
-        <PrivateRoute path="/user"  component={User} isLoggedin={this.props.auth.isLoggedin} />
+        <PrivateRoute path="/user/:userId"  component={User} isLoggedin={this.props.auth.isLoggedin} />
         <Route component={Page404} />
         </Switch>
       </div>
@@ -92,7 +94,8 @@ class App extends React.Component{
 function mapStateToProps (state){  // WE AUTOMATICALLY GETS STATE AS ARGUMENT HERE, TO USE THIS STATE TO STORE DATA FROM THIS STATE/REDUX-STORE TO PROPS
      return {
     posts:state.posts,
-    auth:state.auth
+    auth:state.auth,
+    friends:state.friends
   }  
 }
 
