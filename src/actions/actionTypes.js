@@ -31,5 +31,10 @@ export const ADD_FRIEND = 'ADD_FRIEND';
 export const REMOVE_FRIEND = 'REMOVE_FRIEND';
 
 export const ADD_POST = 'ADD_POST';
+export const ADD_COMMENT='ADD_COMMENT';
 
+export const UPDATE_POST_LIKE ='UPDATE_POST_LIKE';
+
+//search
+export const FETCH_SEARCH_RESULTS_SUCCESS = 'FETCH_SEARCH_RESULTS_SUCCESS';
 

@@ -9,4 +9,7 @@ export const APIUrls = {
     addFriend : (userId) => `${rootURL}/friendship/create_friendship?user_id=${userId}`,
     removeFriend : (userId) => `${rootURL}/friendship/remove_friendship?user_id=${userId}`,
     createPost : () => `${rootURL}/posts/create`,
+    createComment: () => `${rootURL}/comments/`,
+    toggleLike: (id,likeType) => `${rootURL}/likes/toggle?likeable_id=${id}&likeable_type=${likeType}`,
+    userSearch: (searchText) => `${rootURL}/users/search?text=${searchText}`,
 }

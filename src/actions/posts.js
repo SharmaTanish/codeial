@@ -1,5 +1,5 @@
 import { APIUrls } from '../helpers/urls';
-import {ADD_POST, UPDATE_POSTS} from './actionTypes';
+import {ADD_POST, UPDATE_POSTS,ADD_COMMENT, UPDATE_POST_LIKE} from './actionTypes';
 import { getAuthTokenFromLocalStorage, getFormBody } from '../helpers/utils';
 
 export function fetchPosts(){
@@ -54,3 +54,66 @@ export function createPost(content){  // NEW POST IS STORED IN DATABASE BY API, 
         })
     }
 }
+
+
+
+export function createComment(content,postId){ 
+        return (dispatch) => {
+        const url =  APIUrls.createComment();
+        console.log("action",postId);
+
+        fetch(url,{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/x-www-form-urlencoded',
+                 Authorization:`Bearer ${getAuthTokenFromLocalStorage()}`,
+
+            }, 
+            body:getFormBody({post_id:postId,content})  // these should we as it is in name ,i.e., in place of 'content' we can't write let say 'comment' ,i.e any other string also should not differ in case as well!       
+        })
+          .then((response) => response.json())
+          .then((data) =>  {
+            if(data.success){
+                console.log("action");
+                dispatch(addComment(data.data.comment,postId));
+            }
+        })
+    }
+}
+
+export function addComment(comment,postId){
+    return {
+        type:ADD_COMMENT,
+        comment, 
+        postId, // post at wich comment is added
+    }
+}
+
+export function addLike(id,likeType,userId){  // using single api for togggling the like of post and comment both
+    return (dispatch) => {
+        const url = APIUrls.toggleLike(id,likeType);
+        fetch(url,{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/x-www-form-urlencoded',
+                 Authorization:`Bearer ${getAuthTokenFromLocalStorage()}`,
+
+            },      
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if(data.success){
+                dispatch(addLikeToStore(id,userId));
+            }
+        })
+    }
+}
+
+export function addLikeToStore(postId,userId){
+    return{
+    type : UPDATE_POST_LIKE,
+    postId,
+    userId
+    }
+}
+

@@ -22,6 +22,30 @@ class User extends React.Component {
         }
     }
 
+
+    //when searching a user and cicking on it to move to his profile, first
+    //time we go to the profile but now if search another user, then url is 
+    //changing but the content on screen is shown of previous user only even 
+    //after clikcing on new user. since url is changing means component is 
+    //changing but not updated on screen, so in such cases we use componentDidUpdate()
+    // method, like this :-
+    componentDidUpdate(prevProps) {
+        const {
+            match: {params:prevParams}  // renaming params to prevParams and using destructing side by side
+        } = prevProps;
+
+        const {
+            match:{params:currentParams}
+        } = this.props;
+
+        if(prevParams && currentParams && prevParams.userId !== currentParams.userId){
+            this.props.dispatch(fetchUserProfile(currentParams.userId));
+        }
+
+    }
+
+
+
     checkIfUserIsAFriend = () => {
         const {match,friends} = this.props;
         const userId=match.params.userId;

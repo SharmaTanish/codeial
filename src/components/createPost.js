@@ -30,7 +30,7 @@ class CreatePost extends Component {
     render() {
         return (
             <div className="create-post" >
-            <textarea className="add-post" onChange={this.handleChange} value={this.state.content} ></textarea>
+            <textarea className="add-post" placeholder="Start writing a post..." onChange={this.handleChange} value={this.state.content} ></textarea>
             <div>
                 <button id="add-post-btn" onClick={this.handleOnChange} > Add Post</button>
             </div>
