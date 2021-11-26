@@ -55,7 +55,7 @@ class Post extends React.Component {
                 <div className="post-avatar">
                 <Link to={`/user/${post.user._id}`}>
                   <img
-                    src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+                    src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                     alt="user-pic"
                   />
                   </Link>
@@ -72,12 +72,12 @@ class Post extends React.Component {
                   {isPostLikedByUser
                     ?
                     <img // red heart image
-                    src="https://image.flaticon.com/icons/svg/1076/1076984.svg"
+                    src="https://cdn-icons-png.flaticon.com/512/833/833472.png"
                     alt="likes-icon"
                   />
                    :
                   <img // plain white heart image
-                    src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
+                    src="https://cdn-icons-png.flaticon.com/512/1077/1077035.png"
                     alt="likes-icon"
                   />
                   }
@@ -86,7 +86,7 @@ class Post extends React.Component {
 
                 <div className="post-comments-icon">
                   <img
-                    src="https://image.flaticon.com/icons/svg/1380/1380338.svg"
+                    src="https://cdn-icons-png.flaticon.com/512/1380/1380338.png"
                     alt="comments-icon"
                   />
                   <span>{post.comments.length}</span>

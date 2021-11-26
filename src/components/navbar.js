@@ -19,7 +19,7 @@ class Navbar extends Component {
         return (
             <nav className="nav">
             <div className="left-div">
-            <Link to= "/">
+            <Link to= "/codeial">
               <img
                 src="https://ninjasfiles.s3.amazonaws.com/0000000000003454.png"
                 alt="logo"
@@ -29,7 +29,7 @@ class Navbar extends Component {
             <div className="search-container">
               <img
                 className="search-icon"
-                src="https://image.flaticon.com/icons/svg/483/483356.svg"
+                src="https://cdn-icons-png.flaticon.com/512/149/149852.png"
                 alt="search-icon"
               />
               <input placeholder="Search" onChange={this.handleSearch}/>
@@ -44,7 +44,7 @@ class Navbar extends Component {
                   <li className="search-results-row" key = {user._id}>
                   <Link to={`/user/${user._id}`} >
                     <img
-                      src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+                      src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                       alt="user-dp"
                     />
                     <span>{user.name}</span>
@@ -66,7 +66,7 @@ class Navbar extends Component {
               <div className="user">
               <Link to='/settings' >
                 <img
-                  src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+                  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                   alt="user-dp"
                   id="user-dp"
                 />
