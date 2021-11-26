@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/codeial/static/css/main.9d832581.chunk.css",
-    "main.js": "/codeial/static/js/main.ccbe9a46.chunk.js",
-    "main.js.map": "/codeial/static/js/main.ccbe9a46.chunk.js.map",
+    "main.js": "/codeial/static/js/main.dc3c2372.chunk.js",
+    "main.js.map": "/codeial/static/js/main.dc3c2372.chunk.js.map",
     "runtime-main.js": "/codeial/static/js/runtime-main.3f5550fc.js",
     "runtime-main.js.map": "/codeial/static/js/runtime-main.3f5550fc.js.map",
     "static/js/2.668e09ac.chunk.js": "/codeial/static/js/2.668e09ac.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.3f5550fc.js",
     "static/js/2.668e09ac.chunk.js",
     "static/css/main.9d832581.chunk.css",
-    "static/js/main.ccbe9a46.chunk.js"
+    "static/js/main.dc3c2372.chunk.js"
   ]
 }
